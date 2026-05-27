@@ -1,0 +1,21 @@
+# binaries
+bin/
+tmp/
+
+# env
+.env
+
+# logs
+*.log
+
+# coverage
+coverage.out
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+roadmap-carta-para-o-futuro.md*
