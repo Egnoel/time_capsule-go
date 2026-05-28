@@ -111,13 +111,13 @@ func (r *LetterRepository) GetPendingLetters(
 	return letters, nil
 }
 
-func (r *LetterRepository) MarkLetterAsDelivered(ctx context.Context, letterID int64, userID string) error {
+func (r *LetterRepository) MarkLetterAsDelivered(ctx context.Context, letterID string, userID string) error {
 	query := "UPDATE letters SET delivered = TRUE WHERE id = $1 AND user_id = $2 AND delivered = FALSE"
 	_, err := r.db.Exec(ctx, query, letterID, userID)
 	return err
 }
 
-func (r *LetterRepository) GetLetterByID(ctx context.Context, letterID int64, userID string) (*models.Letter, error) {
+func (r *LetterRepository) GetLetterByID(ctx context.Context, letterID string, userID string) (*models.Letter, error) {
 	query := "SELECT id, user_id, subject, body, deliver_at, delivered, created_at FROM letters WHERE id = $1 AND user_id = $2"
 	row := r.db.QueryRow(ctx, query, letterID, userID)
 	var letter models.Letter
@@ -128,13 +128,13 @@ func (r *LetterRepository) GetLetterByID(ctx context.Context, letterID int64, us
 	return &letter, nil
 }
 
-func (r *LetterRepository) DeleteLetter(ctx context.Context, letterID int64, userID string) error {
+func (r *LetterRepository) DeleteLetter(ctx context.Context, letterID string, userID string) error {
 	query := "DELETE FROM letters WHERE id = $1 AND user_id = $2 AND delivered = FALSE"
 	_, err := r.db.Exec(ctx, query, letterID, userID)
 	return err
 }
 
-func (r *LetterRepository) UpdateLetter(ctx context.Context, letterID int64, updatedLetter *models.Letter, userID string) error {
+func (r *LetterRepository) UpdateLetter(ctx context.Context, letterID string, updatedLetter *models.Letter, userID string) error {
 	query := "UPDATE letters SET subject = $1, body = $2, deliver_at = $3 WHERE id = $4 AND user_id = $5 AND delivered = FALSE"
 	_, err := r.db.Exec(ctx, query, updatedLetter.Subject, updatedLetter.Body, updatedLetter.DeliverAt, letterID, userID)
 	return err

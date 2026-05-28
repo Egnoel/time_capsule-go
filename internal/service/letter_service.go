@@ -36,7 +36,7 @@ func (s *LetterService) GetPendingLetters(ctx context.Context, userID string) ([
 	return pendingLetters, nil
 }
 
-func (s *LetterService) GetLetterByID(ctx context.Context, letterID int64, userID string) (*models.Letter, error) {
+func (s *LetterService) GetLetterByID(ctx context.Context, letterID string, userID string) (*models.Letter, error) {
 	letter, err := s.letterRepo.GetLetterByID(ctx, letterID, userID)
 	if err != nil {
 		return nil, err
@@ -44,14 +44,14 @@ func (s *LetterService) GetLetterByID(ctx context.Context, letterID int64, userI
 	return letter, nil
 }
 
-func (s *LetterService) MarkLetterAsDelivered(ctx context.Context, letterID int64, userID string) error {
+func (s *LetterService) MarkLetterAsDelivered(ctx context.Context, letterID string, userID string) error {
 	return s.letterRepo.MarkLetterAsDelivered(ctx, letterID, userID)
 }
 
-func (s *LetterService) UpdateLetter(ctx context.Context, letterID int64, updatedLetter *models.Letter, userID string) error {
+func (s *LetterService) UpdateLetter(ctx context.Context, letterID string, updatedLetter *models.Letter, userID string) error {
 	return s.letterRepo.UpdateLetter(ctx, letterID, updatedLetter, userID)
 }
 
-func (s *LetterService) DeleteLetter(ctx context.Context, letterID int64, userID string) error {
+func (s *LetterService) DeleteLetter(ctx context.Context, letterID string, userID string) error {
 	return s.letterRepo.DeleteLetter(ctx, letterID, userID)
 }
